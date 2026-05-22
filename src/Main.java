@@ -4,7 +4,7 @@ public class Main {
 		MyFileHandler mfh = new MyFileHandler();
 		
 		// Setting up the text file
-		mfh.AssignFile("./Test.txt");
+		mfh.AssignFile("../src/Test.txt");
 		System.out.println(mfh.laoFile.exists());
 //		mfh.OpenFile(mfh.getFile());
 		

@@ -21,7 +21,7 @@ public class MyFileHandler {
 		try {
 			scanobj = new Scanner(laoFile);
 		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+			e.printStackTrace(); 
 		}
 	}
 }
