@@ -2,7 +2,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 public class MyFileHandler {
-	// fields will be package-protected for now
+	// Fields
 	private int line;
 	private File laoFile;
 	private Scanner scanobj;
@@ -12,7 +12,7 @@ public class MyFileHandler {
 		return laoFile;
 	}
 	
-	// Important methods
+	// Methods
 	public void AssignFile(String path) {
 		laoFile = new File(path);
 	}

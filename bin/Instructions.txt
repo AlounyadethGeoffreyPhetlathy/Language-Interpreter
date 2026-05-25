@@ -1,0 +1,4 @@
+English version
+
+ຂຽນ text        -- write to console
+ສ້າງ variableName        -- create a variable
