@@ -1,6 +1,9 @@
 import java.util.ArrayList;
 public class MyHashMap {
+	// Fields
 	ArrayList<Entry>[] buckets;
+	private int value;
+	Alphabet al;
 	
 	// Constructor
 	public MyHashMap() {
@@ -12,6 +15,10 @@ public class MyHashMap {
 	
 	// Methods
 	public int hash(String variableName) {
+//		int total = 0;
+//		for (int i = 0; i < variableName.length(); i++) {
+//			total += value;
+//		}
 		return 0;
 	}
 }

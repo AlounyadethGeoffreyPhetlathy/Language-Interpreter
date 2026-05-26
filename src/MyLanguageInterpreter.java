@@ -29,6 +29,6 @@ public class MyLanguageInterpreter {
 	}
 	
 	private void CreateVariableCommand(String variableName) {
-		
+		mhm.hash(variableName);
 	}
 }
