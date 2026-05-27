@@ -1,5 +1,12 @@
 English version
 
+COMMANDS
 ຂຽນ text        -- write to console
 ສ້າງ variableName        -- create a variable
 ອ່ານ variableName        -- read value from a variable
+ຊຸດ variableName value        -- set value to a variable
+ເຊື່ອມຕໍ່ variableResult string1 ຕໍ່ໄປ string2 ຕໍ່ໄປ ...        -- concatenate 2 or more strings and save to a variable
+ລວມກັນ variableResult variable1 ຕໍ່ໄປ variable2 ຕໍ່ໄປ ...        -- combine 2 variables to create a string and save to a variable
+
+KEYWORDS
+ຕໍ່ໄປ        -- next item

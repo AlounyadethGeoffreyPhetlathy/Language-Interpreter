@@ -16,8 +16,8 @@ public class MyHashMap {
 	public int Hash(String variableName) {
 		int total = 0;
 		String temp = variableName.toLowerCase();
-		for (int i = 0; i < variableName.length(); i++) {
-			total += CharToNumber(variableName.charAt(i));
+		for (int i = 0; i < temp.length(); i++) {
+			total += CharToNumber(temp.charAt(i));
 		}
 		return total % 10;
 	}
@@ -27,7 +27,64 @@ public class MyHashMap {
 		buckets[bucketIndex].add(e);
 	}
 	
-	public int CharToNumber(char c) {
+	public void ReadEntry(int bucketIndex, String variableName) {
+		for (Entry e: buckets[bucketIndex]) {
+			if (e.key.equals(variableName)) {
+				System.out.println(e.value);
+				return;
+			}
+		}
+		throw new RuntimeException("Can not find variable " + variableName);
+	}
+	
+	public void SetEntry(int bucketIndex, String variableName, String value) {
+		for (Entry e: buckets[bucketIndex]) {
+			if (e.key.equals(variableName)) {
+				e.value = value;
+				return;
+			}
+		}
+		throw new RuntimeException("Can not find variable " + variableName);
+	}
+	
+	public void ConcatenateEntry(int bucketIndex, String variableName, String value) {
+		for (Entry e: buckets[bucketIndex]) {
+			if (e.key.equals(variableName)) {
+				e.value = value;
+				return;
+			}
+		}
+		throw new RuntimeException("Can not find variable " + variableName);
+	}
+	
+	public void CombineEntry(ArrayList<Integer> bucketIndexes, String variableResult, ArrayList<String> variables) {
+		ArrayList<String> values = new ArrayList<String>();
+		String finalString = "";
+//		boolean pass = false;
+		for (int i = 0; i < variables.size(); i++) {
+			for (Entry e: buckets[bucketIndexes.get(i+1)]) {
+				if (e.key.equals(variables.get(i))) {
+//					System.out.println(e.value);
+					values.add(e.value);
+//					pass = true;
+				}
+			}
+//			if (!pass) throw new RuntimeException("Can not find variable " + variables.get(i));
+//			pass = false;
+		}
+		for (String s: values) {
+			finalString += s;
+		}
+		for (Entry e: buckets[bucketIndexes.get(0)]) {
+			if (e.key.equals(variableResult)) {
+				e.value = finalString;
+				return;
+			}
+		}
+		throw new RuntimeException("Can not find variable " + variableResult);
+	}
+	
+	private int CharToNumber(char c) {
 		switch(c) {
 		case 'a':
 			return 0;

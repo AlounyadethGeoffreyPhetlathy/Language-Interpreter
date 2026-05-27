@@ -1,1 +1,7 @@
 ສ້າງ x
+ສ້າງ y
+ສ້າງ z
+ຊຸດ y I am variable y
+ຊຸດ z I am variable z combining with y
+ລວມກັນ x y ຕໍ່ໄປ z
+ອ່ານ x
