@@ -2,3 +2,4 @@ English version
 
 ຂຽນ text        -- write to console
 ສ້າງ variableName        -- create a variable
+ອ່ານ variableName        -- read value from a variable

@@ -1,6 +1,7 @@
 public class MyLanguageInterpreter {
 	// Fields
 	private MyHashMap mhm;
+	Commands com;
 	
 	// Constructor
 	public MyLanguageInterpreter() {
@@ -10,6 +11,7 @@ public class MyLanguageInterpreter {
 	// Methods
 	public void CheckStatement(String line) {
 		String[] splitLine = line.split(" ");
+		com = Commands.Execute(splitLine[0]);
 		switch (splitLine[0]) {
 		case "ຂຽນ": // Write To Console
 			String input = "";
@@ -21,6 +23,9 @@ public class MyLanguageInterpreter {
 		case "ສ້າງ": // Create Variable
 			CreateVariableCommand(splitLine[1]);
 			break;
+		case "ອ່ານ":
+			ReadVariableCommand(splitLine[1]);
+			break;
 		}
 	}
 	
@@ -29,6 +34,11 @@ public class MyLanguageInterpreter {
 	}
 	
 	private void CreateVariableCommand(String variableName) {
-		mhm.hash(variableName);
+		int bucketIndex = mhm.Hash(variableName);
+		mhm.AddEntry(bucketIndex, variableName);
+	}
+	
+	private void ReadVariableCommand(String variableName) {
+		int bucketIndex = mhm.Hash(variableName);
 	}
 }
