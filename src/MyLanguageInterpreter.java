@@ -15,8 +15,10 @@ public class MyLanguageInterpreter {
 		String input = "";
 		ArrayList<String> multi = new ArrayList<String>();
 		com = Commands.Execute(splitLine[0]);
-		switch (splitLine[0]) {
-		case "ຂຽນ": // Write To Console
+		switch (com.GetCommand()) {
+		case "ຄວາມຄິດເຫັນ": // Comment, do nothing
+			break;
+		case "ຂຽນ": // Write to console
 			for (int i = 1; i < splitLine.length; i++) {
 				input += splitLine[i] + " ";
 			}
@@ -62,6 +64,9 @@ public class MyLanguageInterpreter {
 			multi.add(input.substring(0, input.length()-1));
 			CombineCommand(splitLine[1], multi);
 			break;
+		case "ຕົວເລກ": // Operations with whole numbers
+			NumberCommand(splitLine[1], splitLine[2], splitLine[4], splitLine[3]);
+			break;
 		}
 	}
 	
@@ -102,5 +107,14 @@ public class MyLanguageInterpreter {
 			bucketIndexes.add(bucketIndex);
 		}
 		mhm.CombineEntry(bucketIndexes, variableResult, variables);
+	}
+	
+	private void NumberCommand(String variableResult, String variable1, String variable2, String operation) {
+		ArrayList<Integer> bucketIndexes = new ArrayList<Integer>();
+		bucketIndexes.add(mhm.Hash(variableResult));
+		bucketIndexes.add(mhm.Hash(variable1));
+		bucketIndexes.add(mhm.Hash(variable2));
+		switch (operation) {
+		}
 	}
 }

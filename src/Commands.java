@@ -1,10 +1,12 @@
 public enum Commands{
+	COMMENT("ຄວາມຄິດເຫັນ"),
 	PRINT("ຂຽນ"),
 	CREATE_VARIABLE("ສ້າງ"),
 	READ_VARIABLE("ອ່ານ"),
 	SET_VARIABLE("ຊຸດ"),
 	CONCATENATE("ເຊື່ອມຕໍ່"),
-	COMBINE("ລວມກັນ");
+	COMBINE("ລວມກັນ"),
+	NUMBER("ຕົວເລກ");
 	
 	private String command;
 	

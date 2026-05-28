@@ -84,6 +84,16 @@ public class MyHashMap {
 		throw new RuntimeException("Can not find variable " + variableResult);
 	}
 	
+	public Entry GetEntry(String variableName) {
+		int bucketIndex = Hash(variableName);
+		for (Entry e: buckets[bucketIndex]) {
+			if (e.key.equals(variableName)) {
+				return e;
+			}
+		}
+		return null;
+	}
+	
 	private int CharToNumber(char c) {
 		switch(c) {
 		case 'a':
