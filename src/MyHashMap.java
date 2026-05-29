@@ -47,45 +47,7 @@ public class MyHashMap {
 		throw new RuntimeException("Can not find variable " + variableName);
 	}
 	
-	public void ConcatenateEntry(int bucketIndex, String variableName, String value) {
-		for (Entry e: buckets[bucketIndex]) {
-			if (e.key.equals(variableName)) {
-				e.value = value;
-				return;
-			}
-		}
-		throw new RuntimeException("Can not find variable " + variableName);
-	}
-	
-	public void CombineEntry(ArrayList<Integer> bucketIndexes, String variableResult, ArrayList<String> variables) {
-		ArrayList<String> values = new ArrayList<String>();
-		String finalString = "";
-//		boolean pass = false;
-		for (int i = 0; i < variables.size(); i++) {
-			for (Entry e: buckets[bucketIndexes.get(i+1)]) {
-				if (e.key.equals(variables.get(i))) {
-//					System.out.println(e.value);
-					values.add(e.value);
-//					pass = true;
-				}
-			}
-//			if (!pass) throw new RuntimeException("Can not find variable " + variables.get(i));
-//			pass = false;
-		}
-		for (String s: values) {
-			finalString += s;
-		}
-		for (Entry e: buckets[bucketIndexes.get(0)]) {
-			if (e.key.equals(variableResult)) {
-				e.value = finalString;
-				return;
-			}
-		}
-		throw new RuntimeException("Can not find variable " + variableResult);
-	}
-	
-	public Entry GetEntry(String variableName) {
-		int bucketIndex = Hash(variableName);
+	public Entry GetEntry(int bucketIndex, String variableName) {
 		for (Entry e: buckets[bucketIndex]) {
 			if (e.key.equals(variableName)) {
 				return e;

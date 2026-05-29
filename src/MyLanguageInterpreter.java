@@ -62,10 +62,14 @@ public class MyLanguageInterpreter {
 				}
 			}
 			multi.add(input.substring(0, input.length()-1));
-			CombineCommand(splitLine[1], multi);
+			multi.add(0, splitLine[1]);
+			CombineCommand(multi);
 			break;
 		case "ຕົວເລກ": // Operations with whole numbers
 			NumberCommand(splitLine[1], splitLine[2], splitLine[4], splitLine[3]);
+			break;
+		case "ຕົວເລກສິບ":
+			DecimalCommand(splitLine[1], splitLine[2], splitLine[4], splitLine[3]);
 			break;
 		}
 	}
@@ -91,22 +95,28 @@ public class MyLanguageInterpreter {
 	
 	private void ConcatenateCommand(String variableName, ArrayList<String> strings) {
 		int bucketIndex = mhm.Hash(variableName);
+		Entry e = mhm.GetEntry(bucketIndex, variableName);
 		String finalString = "";
 		for (String s: strings) {
 			finalString += s;
 		}
-		mhm.ConcatenateEntry(bucketIndex, variableName, finalString);
+		mhm.SetEntry(bucketIndex, variableName, finalString);
 	}
 	
-	private void CombineCommand(String variableResult, ArrayList<String> variables) {
+	private void CombineCommand(ArrayList<String> variables) {
 		ArrayList<Integer> bucketIndexes = new ArrayList<Integer>();
-		int bucketIndex = mhm.Hash(variableResult);
-		bucketIndexes.add(bucketIndex);
+		ArrayList<String> strings = new ArrayList<String>();
+		String finalString = "";
 		for (String s: variables) {
-			bucketIndex = mhm.Hash(s);
-			bucketIndexes.add(bucketIndex);
+			bucketIndexes.add(mhm.Hash(s));
 		}
-		mhm.CombineEntry(bucketIndexes, variableResult, variables);
+		for (int i = 1; i < variables.size(); i++) {
+			strings.add(mhm.GetEntry(bucketIndexes.get(i), variables.get(i)).value);
+		}
+		for (String s: strings) {
+			finalString += s;
+		}
+		mhm.SetEntry(bucketIndexes.get(0), variables.get(0), finalString);
 	}
 	
 	private void NumberCommand(String variableResult, String variable1, String variable2, String operation) {
@@ -114,7 +124,58 @@ public class MyLanguageInterpreter {
 		bucketIndexes.add(mhm.Hash(variableResult));
 		bucketIndexes.add(mhm.Hash(variable1));
 		bucketIndexes.add(mhm.Hash(variable2));
+		int n;
 		switch (operation) {
+		case "ເພີ່ມເຕີມ":
+			n = Integer.parseInt(mhm.GetEntry(bucketIndexes.get(1), variable1).value) + Integer.parseInt(mhm.GetEntry(bucketIndexes.get(2), variable2).value);
+			mhm.SetEntry(bucketIndexes.get(0), variableResult, String.valueOf(n));
+			break;
+		case "ຖອດ":
+			n = Integer.parseInt(mhm.GetEntry(bucketIndexes.get(1), variable1).value) - Integer.parseInt(mhm.GetEntry(bucketIndexes.get(2), variable2).value);
+			mhm.SetEntry(bucketIndexes.get(0), variableResult, String.valueOf(n));
+			break;
+		case "ເພີ່ມທະວີຂຶ້ນ":
+			n = Integer.parseInt(mhm.GetEntry(bucketIndexes.get(1), variable1).value) * Integer.parseInt(mhm.GetEntry(bucketIndexes.get(2), variable2).value);
+			mhm.SetEntry(bucketIndexes.get(0), variableResult, String.valueOf(n));
+			break;
+		case "ແບ່ງແຍກ":
+			n = Integer.parseInt(mhm.GetEntry(bucketIndexes.get(1), variable1).value) / Integer.parseInt(mhm.GetEntry(bucketIndexes.get(2), variable2).value);
+			mhm.SetEntry(bucketIndexes.get(0), variableResult, String.valueOf(n));
+			break;
+		case "ສ່ວນທີ່ເຫຼືອ":
+			n = Integer.parseInt(mhm.GetEntry(bucketIndexes.get(1), variable1).value) % Integer.parseInt(mhm.GetEntry(bucketIndexes.get(2), variable2).value);
+			mhm.SetEntry(bucketIndexes.get(0), variableResult, String.valueOf(n));
+			break;
+		}
+	}
+	
+	private void DecimalCommand(String variableResult, String variable1, String variable2, String operation) {
+		ArrayList<Integer> bucketIndexes = new ArrayList<Integer>();
+		bucketIndexes.add(mhm.Hash(variableResult));
+		bucketIndexes.add(mhm.Hash(variable1));
+		bucketIndexes.add(mhm.Hash(variable2));
+		float n;
+		switch (operation) {
+		case "ເພີ່ມເຕີມ":
+			n = Float.parseFloat(mhm.GetEntry(bucketIndexes.get(1), variable1).value) + Float.parseFloat(mhm.GetEntry(bucketIndexes.get(2), variable2).value);
+			mhm.SetEntry(bucketIndexes.get(0), variableResult, String.valueOf(n));
+			break;
+		case "ຖອດ":
+			n = Float.parseFloat(mhm.GetEntry(bucketIndexes.get(1), variable1).value) - Float.parseFloat(mhm.GetEntry(bucketIndexes.get(2), variable2).value);
+			mhm.SetEntry(bucketIndexes.get(0), variableResult, String.valueOf(n));
+			break;
+		case "ເພີ່ມທະວີຂຶ້ນ":
+			n = Float.parseFloat(mhm.GetEntry(bucketIndexes.get(1), variable1).value) * Float.parseFloat(mhm.GetEntry(bucketIndexes.get(2), variable2).value);
+			mhm.SetEntry(bucketIndexes.get(0), variableResult, String.valueOf(n));
+			break;
+		case "ແບ່ງແຍກ":
+			n = Float.parseFloat(mhm.GetEntry(bucketIndexes.get(1), variable1).value) / Float.parseFloat(mhm.GetEntry(bucketIndexes.get(2), variable2).value);
+			mhm.SetEntry(bucketIndexes.get(0), variableResult, String.valueOf(n));
+			break;
+		case "ສ່ວນທີ່ເຫຼືອ":
+			n = Float.parseFloat(mhm.GetEntry(bucketIndexes.get(1), variable1).value) % Float.parseFloat(mhm.GetEntry(bucketIndexes.get(2), variable2).value);
+			mhm.SetEntry(bucketIndexes.get(0), variableResult, String.valueOf(n));
+			break;
 		}
 	}
 }

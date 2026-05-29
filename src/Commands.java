@@ -6,7 +6,8 @@ public enum Commands{
 	SET_VARIABLE("ຊຸດ"),
 	CONCATENATE("ເຊື່ອມຕໍ່"),
 	COMBINE("ລວມກັນ"),
-	NUMBER("ຕົວເລກ");
+	NUMBER("ຕົວເລກ"),
+	DECIMAL("ຕົວເລກສິບ");
 	
 	private String command;
 	

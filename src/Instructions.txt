@@ -8,11 +8,13 @@ COMMANDS
 ເຊື່ອມຕໍ່ variableResult string1 ຕໍ່ໄປ string2 ຕໍ່ໄປ ...        -- concatenate 2 or more strings and save to a variable
 ລວມກັນ variableResult variable1 ຕໍ່ໄປ variable2 ຕໍ່ໄປ ...        -- combine 2 variables to create a string and save to a variable
 ຄວາມຄິດເຫັນ text        -- comment
-ຕົວເລກ variableResult variable1 operation1 variable2        -- perform an operation with whole numbers
+ຕົວເລກ variableResult variable1 operation1 variable2        -- perform an operation with whole numbers between 2 variables
+ຕົວເລກສິບ variableResult variable1 operation1 variable2        -- perform an operation with decimal numbers between 2 variables
 
 KEYWORDS
 ຕໍ່ໄປ        -- next item
 ເພີ່ມເຕີມ        -- add
 ຖອດ        -- subtract
 ເພີ່ມທະວີຂຶ້ນ        -- multiply
-ແບ່ງ ແຍກ        -- divide
+ແບ່ງແຍກ        -- divide
+ສ່ວນທີ່ເຫຼືອ        -- remainder/modulo
