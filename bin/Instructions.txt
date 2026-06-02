@@ -17,13 +17,13 @@ COMMANDS
 
 KEYWORDS
 ຕໍ່ໄປ        -- next item
+
+MATH
 ເລກບວກ        -- add
 ເລກລົບ        -- subtract
 ເລກຄູນ        -- multiply
 ເລກຫານ        -- divide
 ສ່ວນທີ່ເຫຼືອ        -- remainder/modulo
-ເທົ່າກັບ        -- equal to
 
-INSTRUCTION FORMAT
-COMMAND ຂຽນ
-STRING Hello There
+COMPARISON
+ເທົ່າກັບ        -- equal to

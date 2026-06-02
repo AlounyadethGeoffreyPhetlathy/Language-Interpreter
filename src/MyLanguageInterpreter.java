@@ -15,11 +15,15 @@ public class MyLanguageInterpreter {
 	// Methods
 	public void CheckStatement(String line) {
 		instructions = mf.FormatLine(line);
-		String input = "";
 		ArrayList<String> multi = new ArrayList<String>();
 		com = Commands.Execute(instructions.get(0));
 		switch (com.GetCommand()) {
 		case "ຄວາມຄິດເຫັນ": // Comment, do nothing
+		case "": // Empty line, do nothing
+			break;
+		case "{": // Open bracket
+			break;
+		case "}": // Close bracket
 			break;
 		case "ຂຽນ": // Write to console
 			if (instructions.size() > 2) throw new RuntimeException("Print command has two many arguments");
@@ -53,6 +57,7 @@ public class MyLanguageInterpreter {
 			DecimalCommand(instructions.get(1), instructions.get(2), instructions.get(4), instructions.get(3));
 			break;
 		case "ຖ້າວ່າ": // If statement
+			for (String s: instructions) System.out.println(s);
 			break;
 		}
 		mf.ClearData();
