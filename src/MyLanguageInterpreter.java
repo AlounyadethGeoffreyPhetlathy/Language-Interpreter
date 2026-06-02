@@ -2,76 +2,60 @@ import java.util.ArrayList;
 public class MyLanguageInterpreter {
 	// Fields
 	private MyHashMap mhm;
+	private MyFormatter mf;
 	Commands com;
+	ArrayList<String> instructions;
 	
 	// Constructor
 	public MyLanguageInterpreter() {
 		mhm = new MyHashMap();
+		mf = new MyFormatter();
 	}
 	
 	// Methods
 	public void CheckStatement(String line) {
-		String[] splitLine = line.split(" ");
+		instructions = mf.FormatLine(line);
 		String input = "";
 		ArrayList<String> multi = new ArrayList<String>();
-		com = Commands.Execute(splitLine[0]);
+		com = Commands.Execute(instructions.get(0));
 		switch (com.GetCommand()) {
 		case "ຄວາມຄິດເຫັນ": // Comment, do nothing
 			break;
 		case "ຂຽນ": // Write to console
-			for (int i = 1; i < splitLine.length; i++) {
-				input += splitLine[i] + " ";
-			}
-			WriteCommand(input);
+			if (instructions.size() > 2) throw new RuntimeException("Print command has two many arguments");
+			WriteCommand(instructions.get(1));
 			break;
 		case "ສ້າງ": // Create Variable
-			CreateVariableCommand(splitLine[1]);
+			CreateVariableCommand(instructions.get(1));
 			break;
 		case "ອ່ານ": // Read variable
-			ReadVariableCommand(splitLine[1]);
+			ReadVariableCommand(instructions.get(1));
 			break;
-		case "ຊຸດ": // Set variable
-			for (int i = 2; i < splitLine.length; i++) {
-				input += splitLine[i] + " ";
-			}
-			SetVariableCommand(splitLine[1], input.substring(0, input.length()-1));
+		case "ເກັບໄວ້ໃນ": // Set variable
+			SetVariableCommand(instructions.get(1), instructions.get(2));
 			break;
-		case "ເຊື່ອມຕໍ່": // Concatenate
-			for (int i = 2; i < splitLine.length; i++) {
-				if (splitLine[i].equals("ຕໍ່ໄປ")) {
-					multi.add(input.substring(0, input.length()-1));
-					input = "";
-				}
-				else {
-					input += splitLine[i];
-					input += " ";
-				}
-			}
-			multi.add(input.substring(0, input.length()-1));
-			ConcatenateCommand(splitLine[1], multi);
+		case "ປະກອບ": // Concatenate
+			for (int i = 2; i < instructions.size(); i++) {
+				multi.add(instructions.get(i));
+			};
+			ConcatenateCommand(instructions.get(1), multi);
 			break;
 		case "ລວມກັນ": // Combine
-			for (int i = 2; i < splitLine.length; i++) {
-				if (splitLine[i].equals("ຕໍ່ໄປ")) {
-					multi.add(input.substring(0, input.length()-1));
-					input = "";
-				}
-				else {
-					input += splitLine[i];
-					input += " ";
-				}
+			for (int i = 1; i < instructions.size(); i++) {
+				multi.add(instructions.get(i));
 			}
-			multi.add(input.substring(0, input.length()-1));
-			multi.add(0, splitLine[1]);
 			CombineCommand(multi);
 			break;
 		case "ຕົວເລກ": // Operations with whole numbers
-			NumberCommand(splitLine[1], splitLine[2], splitLine[4], splitLine[3]);
+			NumberCommand(instructions.get(1), instructions.get(2), instructions.get(4), instructions.get(3));
 			break;
-		case "ຕົວເລກສິບ":
-			DecimalCommand(splitLine[1], splitLine[2], splitLine[4], splitLine[3]);
+		case "ຕົວເລກສິບ": // Operations with decimal numbers
+			DecimalCommand(instructions.get(1), instructions.get(2), instructions.get(4), instructions.get(3));
+			break;
+		case "ຖ້າວ່າ": // If statement
 			break;
 		}
+		mf.ClearData();
 	}
 	
 	private void WriteCommand(String input) {
@@ -98,6 +82,7 @@ public class MyLanguageInterpreter {
 		Entry e = mhm.GetEntry(bucketIndex, variableName);
 		String finalString = "";
 		for (String s: strings) {
+//			System.out.println(s);
 			finalString += s;
 		}
 		mhm.SetEntry(bucketIndex, variableName, finalString);
@@ -126,19 +111,19 @@ public class MyLanguageInterpreter {
 		bucketIndexes.add(mhm.Hash(variable2));
 		int n;
 		switch (operation) {
-		case "ເພີ່ມເຕີມ":
+		case "ເລກບວກ":
 			n = Integer.parseInt(mhm.GetEntry(bucketIndexes.get(1), variable1).value) + Integer.parseInt(mhm.GetEntry(bucketIndexes.get(2), variable2).value);
 			mhm.SetEntry(bucketIndexes.get(0), variableResult, String.valueOf(n));
 			break;
-		case "ຖອດ":
+		case "ເລກລົບ":
 			n = Integer.parseInt(mhm.GetEntry(bucketIndexes.get(1), variable1).value) - Integer.parseInt(mhm.GetEntry(bucketIndexes.get(2), variable2).value);
 			mhm.SetEntry(bucketIndexes.get(0), variableResult, String.valueOf(n));
 			break;
-		case "ເພີ່ມທະວີຂຶ້ນ":
+		case "ເລກຄູນ":
 			n = Integer.parseInt(mhm.GetEntry(bucketIndexes.get(1), variable1).value) * Integer.parseInt(mhm.GetEntry(bucketIndexes.get(2), variable2).value);
 			mhm.SetEntry(bucketIndexes.get(0), variableResult, String.valueOf(n));
 			break;
-		case "ແບ່ງແຍກ":
+		case "ເລກຫານ":
 			n = Integer.parseInt(mhm.GetEntry(bucketIndexes.get(1), variable1).value) / Integer.parseInt(mhm.GetEntry(bucketIndexes.get(2), variable2).value);
 			mhm.SetEntry(bucketIndexes.get(0), variableResult, String.valueOf(n));
 			break;
@@ -156,19 +141,19 @@ public class MyLanguageInterpreter {
 		bucketIndexes.add(mhm.Hash(variable2));
 		float n;
 		switch (operation) {
-		case "ເພີ່ມເຕີມ":
+		case "ເລກບວກ":
 			n = Float.parseFloat(mhm.GetEntry(bucketIndexes.get(1), variable1).value) + Float.parseFloat(mhm.GetEntry(bucketIndexes.get(2), variable2).value);
 			mhm.SetEntry(bucketIndexes.get(0), variableResult, String.valueOf(n));
 			break;
-		case "ຖອດ":
+		case "ເລກລົບ":
 			n = Float.parseFloat(mhm.GetEntry(bucketIndexes.get(1), variable1).value) - Float.parseFloat(mhm.GetEntry(bucketIndexes.get(2), variable2).value);
 			mhm.SetEntry(bucketIndexes.get(0), variableResult, String.valueOf(n));
 			break;
-		case "ເພີ່ມທະວີຂຶ້ນ":
+		case "ເລກຄູນ":
 			n = Float.parseFloat(mhm.GetEntry(bucketIndexes.get(1), variable1).value) * Float.parseFloat(mhm.GetEntry(bucketIndexes.get(2), variable2).value);
 			mhm.SetEntry(bucketIndexes.get(0), variableResult, String.valueOf(n));
 			break;
-		case "ແບ່ງແຍກ":
+		case "ເລກຫານ":
 			n = Float.parseFloat(mhm.GetEntry(bucketIndexes.get(1), variable1).value) / Float.parseFloat(mhm.GetEntry(bucketIndexes.get(2), variable2).value);
 			mhm.SetEntry(bucketIndexes.get(0), variableResult, String.valueOf(n));
 			break;

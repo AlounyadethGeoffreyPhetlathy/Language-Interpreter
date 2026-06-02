@@ -3,11 +3,12 @@ public enum Commands{
 	PRINT("ຂຽນ"),
 	CREATE_VARIABLE("ສ້າງ"),
 	READ_VARIABLE("ອ່ານ"),
-	SET_VARIABLE("ຊຸດ"),
-	CONCATENATE("ເຊື່ອມຕໍ່"),
+	SET_VARIABLE("ເກັບໄວ້ໃນ"),
+	CONCATENATE("ປະກອບ"),
 	COMBINE("ລວມກັນ"),
 	NUMBER("ຕົວເລກ"),
-	DECIMAL("ຕົວເລກສິບ");
+	DECIMAL("ຕົວເລກສິບ"),
+	IF("ຖ້າວ່າ");
 	
 	private String command;
 	

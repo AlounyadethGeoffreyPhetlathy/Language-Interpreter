@@ -1,7 +1,9 @@
 ສ້າງ x
 ສ້າງ y
 ສ້າງ z
-ຊຸດ y 9
-ຊຸດ z 10
-ຕົວເລກສິບ x y ແບ່ງແຍກ z
+ເກັບໄວ້ໃນ y "25"
+ເກັບໄວ້ໃນ z "5"
+ຄວາມຄິດເຫັນ "I am a comment, and this is math operation of two variables"
+ຄວາມຄິດເຫັນ "MyFormatter is now complete, which took down some a couple lines in MyLanguageInterpreter"
+	  		  ຕົວເລກສິບ     		 x    	  y    ເລກບວກ 	z
 ອ່ານ x
