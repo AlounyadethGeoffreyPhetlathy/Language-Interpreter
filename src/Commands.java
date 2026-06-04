@@ -1,5 +1,8 @@
 public enum Commands{
 	COMMENT("ຄວາມຄິດເຫັນ"),
+	EMPTY_LINE(""),
+	LEFT_BRACKET("{"),
+	RIGHT_BRACKET("}"),
 	PRINT("ຂຽນ"),
 	CREATE_VARIABLE("ສ້າງ"),
 	READ_VARIABLE("ອ່ານ"),

@@ -28,11 +28,12 @@ public class MyFormatter {
 				st = "";
 			}
 		}
-		instructionsData.add(st);
+		if (!st.isEmpty()) instructionsData.add(st);
 		if (valueDelimiter) throw new RuntimeException("Missing closing quotes");
 //		for (String l: instructionsData) {
 //			System.out.println(l);
 //		}
+		System.out.println();
 		return instructionsData;
 	}
 	
