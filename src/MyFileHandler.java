@@ -29,9 +29,16 @@ public class MyFileHandler {
 		return scanobj.nextLine();
 	}
 	
+	public void SkipUntil(String s) {
+		while (scanobj.nextLine() != s) {
+			scanobj.nextLine();
+		}
+	}
+	
 	public boolean CanReadNextLine() {
 		return scanobj.hasNextLine();
 	}
+	
 	
 	public void CloseFile() {
 		scanobj.close();

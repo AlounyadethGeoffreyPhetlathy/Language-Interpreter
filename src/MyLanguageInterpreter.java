@@ -1,15 +1,34 @@
 import java.util.ArrayList;
 public class MyLanguageInterpreter {
 	// Fields
+	private MyFileHandler mfh;
 	private MyHashMap mhm;
 	private MyFormatter mf;
+	private MyStack ms;
 	Commands com;
 	ArrayList<String> instructions;
 	
 	// Constructor
 	public MyLanguageInterpreter() {
+		mfh = new MyFileHandler();
 		mhm = new MyHashMap();
 		mf = new MyFormatter();
+		ms = new MyStack();
+	}
+	
+	public void Setup() {
+		// Setting up the text file, path is hardcoded for easier testing
+		mfh.AssignFile("C:/JavaLessons/Language Interpreter/src/Test.txt");
+		mfh.OpenFile(mfh.GetFile());
+				
+		// Testing
+		while (mfh.CanReadNextLine()) {
+			String line = mfh.CurrentLine();
+			CheckStatement(line);
+		}
+				
+		// End Reading File/Interpreting File
+		mfh.CloseFile();
 	}
 	
 	// Methods
@@ -57,7 +76,7 @@ public class MyLanguageInterpreter {
 			DecimalCommand(instructions.get(1), instructions.get(2), instructions.get(4), instructions.get(3));
 			break;
 		case "ຖ້າວ່າ": // If statement
-			for (String s: instructions) System.out.println(s);
+			IfCommand(instructions.get(1));
 			break;
 		}
 		mf.ClearData();
@@ -165,6 +184,16 @@ public class MyLanguageInterpreter {
 		case "ສ່ວນທີ່ເຫຼືອ":
 			n = Float.parseFloat(mhm.GetEntry(bucketIndexes.get(1), variable1).value) % Float.parseFloat(mhm.GetEntry(bucketIndexes.get(2), variable2).value);
 			mhm.SetEntry(bucketIndexes.get(0), variableResult, String.valueOf(n));
+			break;
+		}
+	}
+	
+	private void IfCommand(String someBool) {
+		switch(someBool) {
+		case "ຈິງ":
+			
+			break;
+		case "ຜິດ":
 			break;
 		}
 	}

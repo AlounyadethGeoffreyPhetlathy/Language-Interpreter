@@ -16,7 +16,9 @@ COMMANDS
 }
 
 KEYWORDS
-ຕໍ່ໄປ        -- next item
+ຕໍ່ໄປ        -- next item (DEPRECATED)
+ຈິງ        -- true
+ຜິດ        -- false
 
 MATH
 ເລກບວກ        -- add
