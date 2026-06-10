@@ -4,6 +4,7 @@ public class MyLanguageInterpreter {
 	private MyFileHandler mfh;
 	private MyHashMap mhm;
 	private MyFormatter mf;
+	private IfParser iparser;
 	Commands com;
 	ArrayList<String> instructions;
 	private int scope = 0;
@@ -13,6 +14,7 @@ public class MyLanguageInterpreter {
 		mfh = new MyFileHandler();
 		mhm = new MyHashMap();
 		mf = new MyFormatter();
+		iparser = new IfParser();
 	}
 	
 	public void SetUp() {
@@ -44,7 +46,10 @@ public class MyLanguageInterpreter {
 		ArrayList<String> multi = new ArrayList<String>();
 		com = Commands.Execute(instructions.get(0));
 		switch (com.GetCommand()) {
-		case "ຄວາມຄິດເຫັນ": // Comment, do nothing
+		case "ຄວາມຄິດເຫັນ": // For the following, do nothing
+		case "{":
+		case "}":
+		case "":
 			break;
 		case "ຂຽນ": // Write to console
 			if (instructions.size() > 2) throw new RuntimeException("Print command has two many arguments");
@@ -78,7 +83,10 @@ public class MyLanguageInterpreter {
 			DecimalCommand(instructions.get(1), instructions.get(2), instructions.get(4), instructions.get(3));
 			break;
 		case "ຖ້າວ່າ": // If statement
-			IfCommand(instructions.get(1));
+			for (int i = 1; i < instructions.size(); i++) {
+				multi.add(instructions.get(i));
+			}
+			IfCommand(multi);
 			break;
 		}
 		mf.ClearData();
@@ -190,15 +198,14 @@ public class MyLanguageInterpreter {
 		}
 	}
 	
-	private void IfCommand(String boolString) {
-		switch (boolString) {
+	private void IfCommand(ArrayList<String> boolString) {
+//		iparser.EvaluateIf(boolString);
+		
+		switch(boolString.get(1)) {
 		case "ຈິງ":
-			mfh.SkipLinesUntil("{");
-			scope++; 
+			
 			break;
 		case "ຜິດ":
-			mfh.SkipLinesUntil("{");
-			mfh.SkipLinesUntil("}");
 			break;
 		}
 	}

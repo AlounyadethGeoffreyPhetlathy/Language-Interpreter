@@ -5,9 +5,9 @@ COMMANDS
 ສ້າງ variableName        -- create a variable
 ອ່ານ variableName        -- read value from a variable
 ເກັບໄວ້ໃນ variableName value        -- set value to a variable
-ປະກອບ variableResult string1 ຕໍ່ໄປ string2 ຕໍ່ໄປ ...        -- concatenate 2 or more strings and save to a variable 
-ລວມກັນ variableResult variable1 ຕໍ່ໄປ variable2 ຕໍ່ໄປ ...        -- combine 2 variables to create a string and save to a variable
-ຄວາມຄິດເຫັນ text        -- comment, interpreter ignores, it's for you and other people to read
+ປະກອບ variableResult "string1" "string2" ...        -- concatenate 2 or more strings and save to a variable 
+ລວມກັນ variableResult variable1 variable2 ...        -- combine 2 variables to create a string and save to a variable
+ຄວາມຄິດເຫັນ "text"        -- comment, interpreter ignores, it's for you and other people to read
 ຕົວເລກ variableResult variable1 operation1 variable2        -- perform an operation with whole numbers between 2 variables
 ຕົວເລກສິບ variableResult variable1 operation1 variable2        -- perform an operation with decimal numbers between 2 variables (?)
 ຖ້າວ່າ someCondition        -- if statement

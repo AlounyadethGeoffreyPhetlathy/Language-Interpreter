@@ -1,4 +1,3 @@
 ຖ້າວ່າ ຈິງ
 {
-	ຂຽນ "Hello World and this if statement is true"
 }

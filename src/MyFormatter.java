@@ -30,10 +30,9 @@ public class MyFormatter {
 		}
 		if (!st.isEmpty()) instructionsData.add(st);
 		if (valueDelimiter) throw new RuntimeException("Missing closing quotes");
-//		for (String l: instructionsData) {
-//			System.out.println(l);
+//		for (int i = 0; i < instructionsData.size(); i++) {
+//			System.out.println(i + ": " + instructionsData.get(i));
 //		}
-		System.out.println();
 		return instructionsData;
 	}
 	
