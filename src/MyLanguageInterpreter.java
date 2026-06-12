@@ -4,19 +4,21 @@ public class MyLanguageInterpreter {
 	private MyFileHandler mfh;
 	private MyHashMap mhm;
 	private MyFormatter mf;
+	private MyStack ms;
 	private IfParser iparser;
 	Commands com;
 	ArrayList<String> instructions;
-	private int scope = 0;
 	
 	// Constructor
 	public MyLanguageInterpreter() {
 		mfh = new MyFileHandler();
 		mhm = new MyHashMap();
 		mf = new MyFormatter();
+		ms = new MyStack();
 		iparser = new IfParser();
 	}
 	
+	// Methods
 	public void SetUp() {
 		// Setting up the text file, path is hardcoded for easier testing
 		mfh.AssignFile("C:/JavaLessons/Language Interpreter/src/Test.txt");
@@ -27,29 +29,43 @@ public class MyLanguageInterpreter {
 		// Main Loop
 		while (mfh.CanReadNextLine()) {
 			String line = mfh.CurrentLine();
+//			CheckStatement(line);
 			
-			if (scope != 0 && line.equals("}")) {
-				scope--;
-			}
-			else {
-				CheckStatement(line);
-			}
+//			if (!ms.stack.isEmpty()) {
+//				
+//			}
+//			else
+//			{
+//				CheckStatement(line);
+//			}
+			CheckStatement(line);
 		}
 		
 		// End Reading File/Interpreting File
 		mfh.CloseFile();
 	}
 	
-	// Methods
+	public void LogicLoop() {
+		while (mfh.CanReadNextLine()) {
+			
+		}
+	}
+	
 	public void CheckStatement(String line) {
 		instructions = mf.FormatLine(line);
 		ArrayList<String> multi = new ArrayList<String>();
-		com = Commands.Execute(instructions.get(0));
+		if (instructions.size() != 0) com = Commands.Execute(instructions.get(0));
 		switch (com.GetCommand()) {
 		case "ຄວາມຄິດເຫັນ": // For the following, do nothing
-		case "{":
-		case "}":
 		case "":
+			break;
+		case "{":
+//			ms.Push("{");
+//			ms.ReadStack();
+			break;
+		case "}":
+//			ms.Pop();
+//			ms.ReadStack();
 			break;
 		case "ຂຽນ": // Write to console
 			if (instructions.size() > 2) throw new RuntimeException("Print command has two many arguments");
@@ -199,14 +215,6 @@ public class MyLanguageInterpreter {
 	}
 	
 	private void IfCommand(ArrayList<String> boolString) {
-//		iparser.EvaluateIf(boolString);
-		
-		switch(boolString.get(1)) {
-		case "ຈິງ":
-			
-			break;
-		case "ຜິດ":
-			break;
-		}
+//		ms.Push(new Ob);
 	}
 }

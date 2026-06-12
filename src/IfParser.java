@@ -1,8 +1,9 @@
 import java.util.ArrayList;
-public class IfParser {
+public class IfParser implements IParser{
 	// Fields
 	private final String trueKeyword = "ຈິງ";
 	private final String falseKeyword = "ຜິດ";
+//	private final ArrayList<String> condition;
 	
 	// Reconstruct the condition and evaluate it
 	public String EvaluateIf(ArrayList<String> inputCondition) {
@@ -13,6 +14,6 @@ public class IfParser {
 		
 //		for (String s: inputCondition) System.out.println(s);
 		
-		return inputCondition.get(1);
+		return inputCondition.get(0);
 	}
 }

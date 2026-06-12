@@ -3,7 +3,6 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 public class MyFileHandler {
 	// Fields
-	private int line;
 	private File laoFile;
 	private Scanner scanobj;
 	
@@ -33,6 +32,7 @@ public class MyFileHandler {
 		String inputLine = "";
 		inputLine = scanobj.nextLine();
 		while (!inputLine.equals(stop)) {
+			if (!CanReadNextLine()) throw new RuntimeException("Ran out of lines to find String");
 			inputLine = scanobj.nextLine();
 		}
 	}
