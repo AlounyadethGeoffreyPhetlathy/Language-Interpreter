@@ -1,19 +1,25 @@
 import java.util.ArrayList;
 public class IfParser implements IParser{
 	// Fields
-	private final String trueKeyword = "ຈິງ";
-	private final String falseKeyword = "ຜິດ";
-//	private final ArrayList<String> condition;
+	private final ArrayList<String> condition;
+	private boolean isExecuted;
+	
+	public IfParser(ArrayList<String> condition) {
+		this.condition = condition;
+	}
 	
 	// Reconstruct the condition and evaluate it
-	public String EvaluateIf(ArrayList<String> inputCondition) {
-		for (int i = 0; i < inputCondition.size(); i++) {
-			if (inputCondition.get(i).equals(trueKeyword)) inputCondition.set(i, "true");
-			if (inputCondition.get(i).equals(falseKeyword)) inputCondition.set(i, "false");
-		}
+	public void EvaluateCondition() {
+//		for (int i = 0; i < condition.size(); i++) {
+//			if (condition.get(i).equals("ຈິງ")) condition.set(i, "true");
+//			if (condition.get(i).equals("ຜິດ")) condition.set(i, "false");
+//		}
 		
-//		for (String s: inputCondition) System.out.println(s);
-		
-		return inputCondition.get(0);
+		if (condition.get(0).equals("ຈິງ")) isExecuted = true;
+		if (condition.get(0).equals("ຜິດ")) isExecuted = false;
+	}
+	
+	public boolean GetExecuteStatus() {
+		return isExecuted;
 	}
 }

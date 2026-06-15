@@ -5,7 +5,6 @@ public class MyLanguageInterpreter {
 	private MyHashMap mhm;
 	private MyFormatter mf;
 	private MyStack ms;
-	private IfParser iparser;
 	Commands com;
 	ArrayList<String> instructions;
 	
@@ -15,7 +14,6 @@ public class MyLanguageInterpreter {
 		mhm = new MyHashMap();
 		mf = new MyFormatter();
 		ms = new MyStack();
-		iparser = new IfParser();
 	}
 	
 	// Methods
@@ -26,9 +24,18 @@ public class MyLanguageInterpreter {
 	}
 	
 	public void InterpreterLoop() {
+		String line = "";
+		
 		// Main Loop
 		while (mfh.CanReadNextLine()) {
-			String line = mfh.CurrentLine();
+			if (ms.StackSize() == 0) {
+				line = mfh.CurrentLine();
+			}
+			else if (EvaluationResult()) {
+				
+			}
+			
+			line = mfh.CurrentLine();
 //			CheckStatement(line);
 			
 //			if (!ms.stack.isEmpty()) {
@@ -45,12 +52,6 @@ public class MyLanguageInterpreter {
 		mfh.CloseFile();
 	}
 	
-	public void LogicLoop() {
-		while (mfh.CanReadNextLine()) {
-			
-		}
-	}
-	
 	public void CheckStatement(String line) {
 		instructions = mf.FormatLine(line);
 		ArrayList<String> multi = new ArrayList<String>();
@@ -60,12 +61,8 @@ public class MyLanguageInterpreter {
 		case "":
 			break;
 		case "{":
-//			ms.Push("{");
-//			ms.ReadStack();
 			break;
 		case "}":
-//			ms.Pop();
-//			ms.ReadStack();
 			break;
 		case "ຂຽນ": // Write to console
 			if (instructions.size() > 2) throw new RuntimeException("Print command has two many arguments");
@@ -215,6 +212,22 @@ public class MyLanguageInterpreter {
 	}
 	
 	private void IfCommand(ArrayList<String> boolString) {
-//		ms.Push(new Ob);
+		ms.Push(new IfParser(boolString));
+//		ms.ReadStack();
+	}
+	
+	private boolean EvaluationResult() {
+		switch(ms.Peek().getClass().toString()) {
+		case "IfParser":
+			IfParser obj = (IfParser)ms.Peek();
+			obj.EvaluateCondition();
+			return obj.GetExecuteStatus();
+//		case "WhileParser":
+//			break;
+//		case "ForParser":
+//			break;
+		default:
+			throw new RuntimeException("Failed to evaluate block condition");
+		}
 	}
 }

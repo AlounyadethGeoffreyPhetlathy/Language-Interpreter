@@ -1,3 +1,4 @@
 public interface IParser {
-	boolean isExecuted = false;
+	public void EvaluateCondition();
+	public boolean GetExecuteStatus();
 }
