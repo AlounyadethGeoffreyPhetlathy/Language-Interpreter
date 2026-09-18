@@ -4,6 +4,6 @@ public class Main {
 		
 		// Initialize
 		mli.SetUp();
+		mli.InterpretLoop();
 	}
-
 }

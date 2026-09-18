@@ -3,12 +3,13 @@ public class MyFormatter {
 	// Fields
 	ArrayList<String> instructionsData = new ArrayList<String>();
 	
-	public String FormatLine(String s) {
-		String finalLine = "";
-		int count;
+	public ArrayList<String> FormatLine(String s) {
+		ArrayList<String> finalArray = new ArrayList<String>();
 		boolean valueDelimiter = false;
 		boolean spaceDelimiter = false;
 		String st = "";
+		int count = 0;
+		
 		for (int i = 0; i < s.length(); i++) {
 			if (s.charAt(i) == '\"') { // start of value
 				valueDelimiter = !valueDelimiter;
@@ -36,12 +37,12 @@ public class MyFormatter {
 //		for (int i = 0; i < instructionsData.size(); i++) {
 //			System.out.println(i + ": " + instructionsData.get(i));
 //		}
-		count = instructionsData.size();
 		while (!instructionsData.isEmpty()) {
-			// FINISH THIS
-			finalLine += instructionsData;
+			finalArray.add(instructionsData.get(0));
+			instructionsData.remove(0);
+			count++;
 		}
-		return finalLine;
+		return finalArray;
 	}
 	
 	public void ClearData() {

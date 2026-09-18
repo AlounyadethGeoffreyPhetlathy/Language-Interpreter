@@ -6,23 +6,26 @@ public class MyFileHandler {
 	// Fields
 	private Scanner scanobj;
 	private MyFormatter mf;
-	private ArrayList<String> FormattedInstructions;
+	private ArrayList<ArrayList<String>> formattedInstructions;
 	
 	// Constructor
 	public MyFileHandler() {
 		mf = new MyFormatter();
-		FormattedInstructions = new ArrayList<String>();
+		formattedInstructions = new ArrayList<ArrayList<String>>();
 	}
 	
-	// Read all lines into "memory"
-	public void ProcessFile(String fileName) {
+	// Read and format all lines into a "memory"
+	public ArrayList<ArrayList<String>> ProcessFile(String fileName) {
 		try {
 			scanobj = new Scanner(new File(fileName));
-			while (scanobj.hasNextLine()) {
-				FormattedInstructions.add(mf.FormatLine(scanobj.nextLine()));
-			}
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
+		while (scanobj.hasNextLine()) {
+//			formattedInstructions.get(0) = mf.FormatLine(scanobj.nextLine());
+			formattedInstructions.add(mf.FormatLine(scanobj.nextLine()));
+		}
+		
+		return formattedInstructions;
 	}
 }
