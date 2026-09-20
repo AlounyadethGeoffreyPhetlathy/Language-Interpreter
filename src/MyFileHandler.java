@@ -22,7 +22,6 @@ public class MyFileHandler {
 			e.printStackTrace();
 		}
 		while (scanobj.hasNextLine()) {
-//			formattedInstructions.get(0) = mf.FormatLine(scanobj.nextLine());
 			formattedInstructions.add(mf.FormatLine(scanobj.nextLine()));
 		}
 		

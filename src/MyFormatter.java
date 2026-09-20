@@ -44,8 +44,4 @@ public class MyFormatter {
 		}
 		return finalArray;
 	}
-	
-	public void ClearData() {
-		instructionsData.clear();
-	}
 }

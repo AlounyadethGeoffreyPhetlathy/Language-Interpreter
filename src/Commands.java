@@ -1,5 +1,8 @@
 public enum Commands {
-	PRINT("ຂຽນ");
+	PRINT("ຂຽນ"),
+	CREATE_VARIABLE("ສ້າງ"),
+	READ_VARIABLE("ອ່ານ"),
+	SET_VARIABLE("ເກັບໄວ້ໃນ");
 	
 	private String command;
 	

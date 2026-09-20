@@ -1,2 +1,4 @@
-ຂຽນ "I Guess"
-ຂຽນ "Printing command works!!!"
+ຂຽນ "Variable Test"
+ສ້າງ "x"
+ເກັບໄວ້ໃນ "x" "x reads Hello World"
+ອ່ານ "x"
