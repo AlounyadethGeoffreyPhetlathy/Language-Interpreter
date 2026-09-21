@@ -1,4 +1,6 @@
 public enum Commands {
+	COMMENT("ຄວາມຄິດເຫັນ"),
+	EMPTYLINE(""),
 	PRINT("ຂຽນ"),
 	CREATE_VARIABLE("ສ້າງ"),
 	READ_VARIABLE("ອ່ານ"),

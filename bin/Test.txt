@@ -1,8 +1,15 @@
-ຂຽນ "Concatenate Test"
+ຄວາມຄິດເຫັນ This is a comment and I like my progress on this third iteration of the project
+
 ສ້າງ "x"
+
 ສ້າງ "y"
+
 ສ້າງ "z"
+
 ເກັບໄວ້ໃນ "y" "Hello"
+
 ເກັບໄວ້ໃນ "z" " World"
+
 ລວມກັນ "x" "y" "z"
+
 ອ່ານ "x"

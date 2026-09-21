@@ -33,6 +33,10 @@ public class MyLanguageInterpreter {
 		if (line.size() != 0) com = Commands.Execute(line.get(0));
 		ArrayList<String> multi = new ArrayList<String>();
 		switch (com.GetCommand()) {
+		case "ຄວາມຄິດເຫັນ": // Comment
+			break;
+		case "": // Empty line
+			break;
 		case "ຂຽນ": // Print to console
 			if (line.size() > 2) throw new RuntimeException("Print command has too many arugments");
 			PrintCommand(line.get(1));
