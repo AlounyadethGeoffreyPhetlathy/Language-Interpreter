@@ -2,7 +2,9 @@ public enum Commands {
 	PRINT("ຂຽນ"),
 	CREATE_VARIABLE("ສ້າງ"),
 	READ_VARIABLE("ອ່ານ"),
-	SET_VARIABLE("ເກັບໄວ້ໃນ");
+	SET_VARIABLE("ເກັບໄວ້ໃນ"),
+	CONCATENATE("ປະກອບ"),
+	COMBINE("ລວມກັນ");
 	
 	private String command;
 	

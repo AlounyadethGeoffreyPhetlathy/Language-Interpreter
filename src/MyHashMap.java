@@ -24,6 +24,9 @@ public class MyHashMap {
 	// Add a variable to the bucket
 	public void AddEntry(int bucketIndex, String variableName) {
 		Entry e = new Entry(variableName, "");
+		for (Entry en: buckets[bucketIndex]) {
+			if (en.key.equals(variableName)) throw new RuntimeException("Variable: " + '\"' + variableName + '\"' + " already exists");
+		}
 		buckets[bucketIndex].add(e);
 	}
 	
@@ -47,5 +50,15 @@ public class MyHashMap {
 			}
 		}
 		throw new RuntimeException("Can not find variable " + variableName);
+	}
+	
+	// Returns a variable (also known as Entry)
+	public Entry GetEntry(int bucketIndex, String variableName) {
+		for (Entry e: buckets[bucketIndex]) {
+			if (e.key.equals(variableName)) {
+				return e;
+			}
+		}
+		return null;
 	}
 }

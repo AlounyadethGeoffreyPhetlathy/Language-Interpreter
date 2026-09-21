@@ -24,6 +24,7 @@ public class MyFileHandler {
 		while (scanobj.hasNextLine()) {
 			formattedInstructions.add(mf.FormatLine(scanobj.nextLine()));
 		}
+		scanobj.close();
 		
 		return formattedInstructions;
 	}
