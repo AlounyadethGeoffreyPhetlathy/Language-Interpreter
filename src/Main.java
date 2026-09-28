@@ -4,6 +4,7 @@ public class Main {
 		
 		// Initialize
 		mli.SetUp();
+		mli.ControlStructSetup();
 		mli.InterpretLoop();
 	}
 }

@@ -3,16 +3,18 @@ public class MyLanguageInterpreter {
 	// Important classes
 	MyFileHandler mfh;
 	MyHashMap mhm;
+	MyMemory mm;
 	
 	// Fields
 	public ArrayList<ArrayList<String>> codeLines;
-	private int numLine = 0;
+	private int globalLine = 0;
 	private Commands com;
 	
 	// Constructor
 	public MyLanguageInterpreter() {
 		mfh = new MyFileHandler();
 		mhm = new MyHashMap();
+		mm = new MyMemory();
 	}
 	
 	// Setting up the text file, path is hardcoded for easier testing
@@ -20,11 +22,49 @@ public class MyLanguageInterpreter {
 		codeLines = mfh.ProcessFile("C:/JavaLessons/Language Interpreter/src/Test.txt");
 	}
 	
+	// Create IF, WHILE, and FOR objects
+	public void ControlStructSetup() {
+		while (globalLine < codeLines.size()) {
+			SearchForControlStruct(codeLines.get(globalLine));
+			globalLine++;
+		}
+		globalLine = 0;
+	}
+	
 	// Main loop
 	public void InterpretLoop() {
-		while (numLine < codeLines.size()) {
-			SearchForCommand(codeLines.get(numLine));
-			numLine++;
+		while (globalLine < codeLines.size()) {
+			SearchForCommand(codeLines.get(globalLine));
+			globalLine++;
+		}
+	}
+	
+	// Control structures check
+	private void SearchForControlStruct(ArrayList<String> line) {
+		int start = 0;
+		int end = 0;
+		int bracketCount = 1;
+		int localLine = globalLine;
+		ArrayList<String> multi = new ArrayList<String>();
+		if (line.size() != 0) com = Commands.Execute(line.get(0));
+		switch (com.GetCommand()) {
+		case "ຖ້າວ່":
+			localLine+=1;
+			if (!codeLines.get(localLine).get(0).equals("{")) throw new RuntimeException("Invalid IF declaration");
+			start = localLine;
+			localLine+=1;
+			while (localLine < codeLines.size() && bracketCount != 0) {
+				if (codeLines.get(localLine).get(0).equals("{")) bracketCount++;
+				else if (codeLines.get(localLine).get(0).equals("}")) bracketCount--;
+				localLine++;
+			}
+			if (bracketCount != 0) throw new RuntimeException("Curly bracket missing");
+			else end = localLine-1;
+			for (int i = 1; i < line.size(); i++) {
+				multi.add(line.get(i));
+			}
+			mm.CreateIf(start, end, multi);
+			break;
 		}
 	}
 	
@@ -36,6 +76,10 @@ public class MyLanguageInterpreter {
 		case "ຄວາມຄິດເຫັນ": // Comment
 			break;
 		case "": // Empty line
+			break;
+		case "{": // Left Bracket
+			break;
+		case "}": // Right Bracket
 			break;
 		case "ຂຽນ": // Print to console
 			if (line.size() > 2) throw new RuntimeException("Print command has too many arugments");
@@ -61,6 +105,11 @@ public class MyLanguageInterpreter {
 			for (int i = 2; i < line.size(); i++) multi.add(line.get(i));
 			CombineCommand(line.get(1), multi);
 			break;
+		case "ຖ້າວ່":
+			IfCommand();
+			break;
+		default:
+			throw new RuntimeException("Invalid command on line: " + globalLine);
 		}
 	}
 	
@@ -103,5 +152,12 @@ public class MyLanguageInterpreter {
 			finalValue += value;
 		}
 		mhm.SetEntry(mhm.Hash(variableName), variableName, finalValue);
+	}
+	
+	private void IfCommand() {
+		IfParser ifObj = mm.SearchIf(globalLine+1);
+		boolean result = ifObj.EvaluateCondition();
+		if (result == true) globalLine = ifObj.GetStartBlock();
+		else globalLine = ifObj.GetEndBlock();
 	}
 }

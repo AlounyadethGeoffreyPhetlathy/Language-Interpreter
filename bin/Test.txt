@@ -1,15 +1,20 @@
 ຄວາມຄິດເຫັນ This is a comment and I like my progress on this third iteration of the project
 
-ສ້າງ "x"
-
-ສ້າງ "y"
-
-ສ້າງ "z"
-
-ເກັບໄວ້ໃນ "y" "Hello"
-
-ເກັບໄວ້ໃນ "z" " World"
-
-ລວມກັນ "x" "y" "z"
-
-ອ່ານ "x"
+ຖ້າວ່ ຈິງ
+{
+	ຂຽນ "I am inside the if block"
+	ຂຽນ "This prints because it is true!"
+	ຖ້າວ່ ຈິງ
+	{
+		ຂຽນ "I am a simple nested true if statement"
+		ຖ້າວ່ ຈິງ
+		{
+			ຂຽນ "I am even more nested somehow"
+		}
+	}
+	
+	ຖ້າວ່ ຜິດ
+	{
+		ຂຽນ "Double nesting is crazy"
+	}
+}

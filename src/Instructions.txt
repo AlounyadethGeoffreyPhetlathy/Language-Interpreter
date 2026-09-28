@@ -10,6 +10,7 @@ COMMANDS
 ຄວາມຄິດເຫັນ "text"        -- comment, interpreter ignores, it's for you and other people to read
 ຕົວເລກ variableResult variable1 operation1 variable2        -- perform an operation with whole numbers between 2 variables
 ຕົວເລກສິບ variableResult variable1 operation1 variable2        -- perform an operation with decimal numbers between 2 variables (?)
+
 ຖ້າວ່າ someCondition        -- if statement
 {
 -- code body
