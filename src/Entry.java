@@ -1,4 +1,4 @@
-public class Entry extends Type {
+public class Entry {
 	String key;
 	String value;
 	

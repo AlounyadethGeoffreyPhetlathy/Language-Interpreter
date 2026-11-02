@@ -1,0 +1,5 @@
+Examples
+
+if "20" == "20"
+
+Token struct: ComparisonToken(ExpressionToken("VALUE", "20"), ExpressionToken("VALUE", "20"), "Equals")

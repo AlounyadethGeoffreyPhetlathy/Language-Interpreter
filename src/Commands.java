@@ -9,7 +9,7 @@ public enum Commands {
 	SET_VARIABLE("ເກັບໄວ້ໃນ"),
 	CONCATENATE("ປະກອບ"),
 	COMBINE("ລວມກັນ"),
-	IF("ຖ້າວ່");
+	IF("ຖ້າວ່າ");
 	
 	private String command;
 	

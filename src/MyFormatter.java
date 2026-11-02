@@ -1,20 +1,23 @@
 import java.util.ArrayList;
 public class MyFormatter {
 	// Fields
-	ArrayList<String> instructionsData = new ArrayList<String>();
+	ArrayList<Token> instructionsData = new ArrayList<Token>();
+	final String[] KEYWORDS = {"ເທົ່າກັບ", "ບໍ່ເທົ່າກັບ", "ນ້ອຍກວ່າ", "ນ້ອຍກວ່າຫຼືເທົ່າກັນ", "ຫຼາຍກວ່າ", "ຫຼາຍກວ່າຫຼືເທົ່າກັບ"};
+	final String[] COMMANDS = {"ອ່ານ", "{", "}"};
 	
-	public ArrayList<String> FormatLine(String s) {
-		ArrayList<String> finalArray = new ArrayList<String>();
+	public ArrayList<Token> FormatLine(String s) {
+		ArrayList<Token> finalArray = new ArrayList<Token>();
 		boolean valueDelimiter = false;
 		boolean spaceDelimiter = false;
+		boolean getCom = false;
 		String st = "";
-		int count = 0;
+//		int count = 0;
 		
 		for (int i = 0; i < s.length(); i++) {
 			if (s.charAt(i) == '\"') { // start of value
 				valueDelimiter = !valueDelimiter;
 				if (!st.isEmpty()) { // end of value
-					instructionsData.add(st);
+					instructionsData.add(new Token(st, "VALUE"));
 					st = "";
 				}
 			}
@@ -26,22 +29,46 @@ public class MyFormatter {
 				spaceDelimiter = false;
 			}
 			else if ((s.charAt(i) == '\s' || s.charAt(i) == '\t') && !spaceDelimiter && !st.isEmpty()) { // store characters
-				instructionsData.add(st);
+				if (!getCom)  {
+					instructionsData.add(new Token(st, "COMMAND"));
+					getCom = true;
+				}
+				else if (CheckForCommand(st)) instructionsData.add(new Token(st, "COMMAND"));
+				else if (CheckForKeyword(st)) instructionsData.add(new Token(st, "KEYWORD"));
+				else instructionsData.add(new Token(st, "VARIABLE"));
 				spaceDelimiter = true;
 				st = "";
 			}
 		}
-		if (!st.isEmpty()) instructionsData.add(st);
+		if (!st.isEmpty()) {
+			if (CheckForCommand(st)) instructionsData.add(new Token(st, "COMMAND"));
+			else if (CheckForKeyword(st)) instructionsData.add(new Token(st, "KEYWORD"));
+			else instructionsData.add(new Token(st, "VARIABLE"));
+		}
 		if (valueDelimiter) throw new RuntimeException("Missing closing quotes");
-		if (instructionsData.size() == 0) instructionsData.add("");
+		if (instructionsData.size() == 0) instructionsData.add(new Token(st, "COMMAND"));
 //		for (int i = 0; i < instructionsData.size(); i++) {
-//			System.out.println(i + ": " + instructionsData.get(i));
+//			System.out.println(i + ": " + instructionsData.get(i).GetType() + " " + instructionsData.get(i).GetValue());
 //		}
 		while (!instructionsData.isEmpty()) {
 			finalArray.add(instructionsData.get(0));
 			instructionsData.remove(0);
-			count++;
+//			count++;
 		}
 		return finalArray;
+	}
+	
+	private boolean CheckForKeyword(String word) {
+		for (String keyword: KEYWORDS) {
+			if (word.equals(keyword)) return true;
+		}
+		return false;
+	}
+	
+	private boolean CheckForCommand(String word) {
+		for (String command: COMMANDS) {
+			if (word.equals(command)) return true;
+		}
+		return false;
 	}
 }

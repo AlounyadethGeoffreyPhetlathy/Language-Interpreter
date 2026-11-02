@@ -31,4 +31,22 @@ MATH
 ສ່ວນທີ່ເຫຼືອ        -- remainder/modulo
 
 COMPARISON
-ເທົ່າກັບ        -- equal to
+ເທົ່າກັບ STRING        -- equal to (string compare)
+ເທົ່າກັບ INTEGER        -- equal to (integer compare)
+ເທົ່າກັບ FLOAT        -- equal to (float compare)
+ບໍ່ເທົ່າກັບ STRING        -- not equal to (string compare)
+ບໍ່ເທົ່າກັບ INTEGER        -- not equal to (integer compare)
+ບໍ່ເທົ່າກັບ FLOAT        -- not equal to (float compare)
+ນ້ອຍກວ່າ INTEGER        -- less than (integer compare)
+ນ້ອຍກວ່າ FLOAT        -- less than (float compare)
+ນ້ອຍກວ່າຫຼືເທົ່າກັນ INTEGER        -- less than or equal (integer)
+ນ້ອຍກວ່າຫຼືເທົ່າກັນ FLOAT        -- less than or equal (float)
+ຫຼາຍກວ່າ INTEGER        -- greater than (integer compare)
+ຫຼາຍກວ່າ FLOAT        -- greater than (float compare)
+ຫຼາຍກວ່າຫຼືເທົ່າກັບ INTEGER        -- greater than or equal (integer)
+ຫຼາຍກວ່າຫຼືເທົ່າກັບ FLOAT        -- greater than or equal (float)
+
+LOGICAL OPERATORS
+ແລະ        -- AND
+ຫຼື         -- OR
+ບໍ່ແມ່ນ        -- NOT

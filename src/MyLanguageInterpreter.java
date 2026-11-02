@@ -6,7 +6,7 @@ public class MyLanguageInterpreter {
 	MyMemory mm;
 	
 	// Fields
-	public ArrayList<ArrayList<String>> codeLines;
+	public ArrayList<ArrayList<Token>> codeLines;
 	private int globalLine = 0;
 	private Commands com;
 	
@@ -40,22 +40,22 @@ public class MyLanguageInterpreter {
 	}
 	
 	// Control structures check
-	private void SearchForControlStruct(ArrayList<String> line) {
+	private void SearchForControlStruct(ArrayList<Token> line) {
 		int start = 0;
 		int end = 0;
 		int bracketCount = 1;
 		int localLine = globalLine;
-		ArrayList<String> multi = new ArrayList<String>();
-		if (line.size() != 0) com = Commands.Execute(line.get(0));
+		ArrayList<Token> multi = new ArrayList<Token>();
+		if (line.size() != 0) com = Commands.Execute(line.get(0).GetValue());
 		switch (com.GetCommand()) {
-		case "ຖ້າວ່":
+		case "ຖ້າວ່າ":
 			localLine+=1;
-			if (!codeLines.get(localLine).get(0).equals("{")) throw new RuntimeException("Invalid IF declaration");
+			if (!codeLines.get(localLine).get(0).GetValue().equals("{")) throw new RuntimeException("Invalid IF declaration");
 			start = localLine;
 			localLine+=1;
 			while (localLine < codeLines.size() && bracketCount != 0) {
-				if (codeLines.get(localLine).get(0).equals("{")) bracketCount++;
-				else if (codeLines.get(localLine).get(0).equals("}")) bracketCount--;
+				if (codeLines.get(localLine).get(0).GetValue().equals("{")) bracketCount++;
+				else if (codeLines.get(localLine).get(0).GetValue().equals("}")) bracketCount--;
 				localLine++;
 			}
 			if (bracketCount != 0) throw new RuntimeException("Curly bracket missing");
@@ -65,12 +65,12 @@ public class MyLanguageInterpreter {
 			}
 			mm.CreateIf(start, end, multi);
 			break;
-		}
+		}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
 	}
 	
 	// Command check
-	private void SearchForCommand(ArrayList<String> line) {
-		if (line.size() != 0) com = Commands.Execute(line.get(0));
+	private void SearchForCommand(ArrayList<Token> line) {
+		if (line.size() != 0) com = Commands.Execute(line.get(0).GetValue());
 		ArrayList<String> multi = new ArrayList<String>();
 		switch (com.GetCommand()) {
 		case "ຄວາມຄິດເຫັນ": // Comment
@@ -83,29 +83,29 @@ public class MyLanguageInterpreter {
 			break;
 		case "ຂຽນ": // Print to console
 			if (line.size() > 2) throw new RuntimeException("Print command has too many arugments");
-			PrintCommand(line.get(1));
+			PrintCommand(line.get(1).GetValue());
 			break;
 		case "ສ້າງ": // Create variable
 			if (line.size() > 2) throw new RuntimeException("Create variable command has too many arugments");
-			CreateVariableCommand(line.get(1));
+			CreateVariableCommand(line.get(1).GetValue());
 			break;
 		case "ອ່ານ": // Read variable
 			if (line.size() > 2) throw new RuntimeException("Read variable command has too many arugments");
-			ReadVariableCommand(line.get(1));
+			ReadVariableCommand(line.get(1).GetValue());
 			break;
 		case "ເກັບໄວ້ໃນ": // Set variable
 			if (line.size() > 3) throw new RuntimeException("Set variable command has too many arugments");
-			SetVariableCommand(line.get(1), line.get(2));
+			SetVariableCommand(line.get(1).GetValue(), line.get(2).GetValue());
 			break;
 		case "ປະກອບ": // Concatenate
-			for (int i = 2; i < line.size(); i++) multi.add(line.get(i));
-			ConcatenateCommand(line.get(1), multi);
+			for (int i = 2; i < line.size(); i++) multi.add(line.get(i).GetValue());
+			ConcatenateCommand(line.get(1).GetValue(), multi);
 			break;
 		case "ລວມກັນ": // Combine
-			for (int i = 2; i < line.size(); i++) multi.add(line.get(i));
-			CombineCommand(line.get(1), multi);
+			for (int i = 2; i < line.size(); i++) multi.add(line.get(i).GetValue());
+			CombineCommand(line.get(1).GetValue(), multi);
 			break;
-		case "ຖ້າວ່":
+		case "ຖ້າວ່າ":
 			IfCommand();
 			break;
 		default:
@@ -156,7 +156,7 @@ public class MyLanguageInterpreter {
 	
 	private void IfCommand() {
 		IfParser ifObj = mm.SearchIf(globalLine+1);
-		boolean result = ifObj.EvaluateCondition();
+		boolean result = ifObj.EvaluateCondition(mhm);
 		if (result == true) globalLine = ifObj.GetStartBlock();
 		else globalLine = ifObj.GetEndBlock();
 	}

@@ -1,20 +1,8 @@
-ຄວາມຄິດເຫັນ This is a comment and I like my progress on this third iteration of the project
+ຄວາມຄິດເຫັນ "This program is so confusing and good lol"
 
-ຖ້າວ່ ຈິງ
+ສ້າງ x
+ເກັບໄວ້ໃນ x "20"
+ຖ້າວ່າ ອ່ານ x ຫຼາຍກວ່າຫຼືເທົ່າກັບ INTEGER "10"
 {
-	ຂຽນ "I am inside the if block"
-	ຂຽນ "This prints because it is true!"
-	ຖ້າວ່ ຈິງ
-	{
-		ຂຽນ "I am a simple nested true if statement"
-		ຖ້າວ່ ຈິງ
-		{
-			ຂຽນ "I am even more nested somehow"
-		}
-	}
-	
-	ຖ້າວ່ ຜິດ
-	{
-		ຂຽນ "Double nesting is crazy"
-	}
+	ຂຽນ "This is a working greater than or equal"
 }
