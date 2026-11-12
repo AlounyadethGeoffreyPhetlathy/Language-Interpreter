@@ -1,8 +1,11 @@
-ຄວາມຄິດເຫັນ "This program is so confusing and good lol"
+ຄວາມຄິດເຫັນ "Testing for condition order"
 
-ສ້າງ x
-ເກັບໄວ້ໃນ x "5"
-ຖ້າວ່າ ອ່ານ x ຫຼາຍກວ່າຫຼືເທົ່າກັບ INTEGER "10"
+ສ້າງ bool1
+ສ້າງ bool2
+ເກັບໄວ້ໃນ bool1 "ຜິດ"
+ເກັບໄວ້ໃນ bool2 "ຜິດ"
+
+ຖ້າວ່າ ( ອ່ານ bool1 ແລະ ອ່ານ bool2 ) ແລະ ( ອ່ານ bool1 ຫຼື ອ່ານ bool2 )
 {
-	ຂຽນ "This is a working greater than or equal"
+	ຂຽນ "( bool1 && bool2 ) && ( bool1 || bool2 ) is true"
 }

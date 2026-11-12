@@ -1,9 +1,11 @@
 import java.util.ArrayList;
+import java.util.Scanner;
 public class MyLanguageInterpreter {
 	// Important classes
 	MyFileHandler mfh;
 	MyHashMap mhm;
 	MyMemory mm;
+	Scanner scn;
 	
 	// Fields
 	public ArrayList<ArrayList<Token>> codeLines;
@@ -15,6 +17,7 @@ public class MyLanguageInterpreter {
 		mfh = new MyFileHandler();
 		mhm = new MyHashMap();
 		mm = new MyMemory();
+		scn = new Scanner(System.in);
 	}
 	
 	// Setting up the text file, path is hardcoded for easier testing
@@ -72,6 +75,7 @@ public class MyLanguageInterpreter {
 	private void SearchForCommand(ArrayList<Token> line) {
 		if (line.size() != 0) com = Commands.Execute(line.get(0).GetValue());
 		ArrayList<String> multi = new ArrayList<String>();
+		ArrayList<Token> tokenCollection = new ArrayList<Token>();
 		switch (com.GetCommand()) {
 		case "ຄວາມຄິດເຫັນ": // Comment
 			break;
@@ -84,6 +88,10 @@ public class MyLanguageInterpreter {
 		case "ຂຽນ": // Print to console
 			if (line.size() > 2) throw new RuntimeException("Print command has too many arugments");
 			PrintCommand(line.get(1).GetValue());
+			break;
+		case "ຂໍ້ມູນນໍາເຂົ້າ": // Input from console
+			if (line.size() > 2) throw new RuntimeException("Input command has too many arguments");
+			InputCommand(line.get(1).GetValue());
 			break;
 		case "ສ້າງ": // Create variable
 			if (line.size() > 2) throw new RuntimeException("Create variable command has too many arugments");
@@ -98,13 +106,14 @@ public class MyLanguageInterpreter {
 			SetVariableCommand(line.get(1).GetValue(), line.get(2).GetValue());
 			break;
 		case "ປະກອບ": // Concatenate
-			for (int i = 2; i < line.size(); i++) multi.add(line.get(i).GetValue());
-			ConcatenateCommand(line.get(1).GetValue(), multi);
+			for (int i = 2; i < line.size(); i++) tokenCollection.add(line.get(i));
+			ConcatenateCommand(line.get(1).GetValue(), tokenCollection);
 			break;
-		case "ລວມກັນ": // Combine
-			for (int i = 2; i < line.size(); i++) multi.add(line.get(i).GetValue());
-			CombineCommand(line.get(1).GetValue(), multi);
-			break;
+		// OLD CODE
+//		case "ລວມກັນ": // Combine
+//			for (int i = 2; i < line.size(); i++) multi.add(line.get(i).GetValue());
+//			CombineCommand(line.get(1).GetValue(), multi);
+//			break;
 		case "ຖ້າວ່າ":
 			IfCommand();
 			break;
@@ -118,8 +127,13 @@ public class MyLanguageInterpreter {
 		System.out.println(msg);
 	}
 	
-	private void CreateVariableCommand(String varName) {
-		mhm.AddEntry(mhm.Hash(varName), varName);
+	private void InputCommand(String variableName) {
+		String inValue = scn.nextLine();
+		mhm.SetEntry(mhm.Hash(variableName), variableName, inValue);
+	}
+	
+	private void CreateVariableCommand(String variableName) {
+		mhm.AddEntry(mhm.Hash(variableName), variableName);
 	}
 	
 	private void ReadVariableCommand(String variableName) {
@@ -130,14 +144,20 @@ public class MyLanguageInterpreter {
 		mhm.SetEntry(mhm.Hash(variableName), variableName, value);
 	}
 	
-	private void ConcatenateCommand(String variableName, ArrayList<String> strings) {
+	private void ConcatenateCommand(String variableName, ArrayList<Token> tokenArgs) {
 		String finalValue = "";
-		for (String s: strings) {
-			finalValue += s;
+		for (Token t : tokenArgs) {
+			if (t.GetType().equals("VARIABLE")) {
+				finalValue += mhm.GetEntry(mhm.Hash(t.GetValue()), t.GetValue()).value;
+			}
+			else {
+				finalValue += t.GetValue();
+			}
 		}
 		mhm.SetEntry(mhm.Hash(variableName), variableName, finalValue);
 	}
 	
+	@Deprecated
 	private void CombineCommand(String variableName, ArrayList<String> variables) {
 		ArrayList<Integer> bucketIndexes = new ArrayList<Integer>();
 		ArrayList<String> variableValues = new ArrayList<String>();
@@ -156,7 +176,7 @@ public class MyLanguageInterpreter {
 	
 	private void IfCommand() {
 		IfParser ifObj = mm.SearchIf(globalLine+1);
-		boolean result = ifObj.EvaluateCondition(mhm);
+		boolean result = ifObj.EvaluateCondition(mhm, ifObj.getIfCondition());
 		if (result == true) globalLine = ifObj.GetStartBlock();
 		else globalLine = ifObj.GetEndBlock();
 	}

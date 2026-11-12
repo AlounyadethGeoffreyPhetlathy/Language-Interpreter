@@ -1,12 +1,12 @@
 English version
 
 COMMANDS
-ຂຽນ "text"        -- write to console
+ຂຽນ "text"        -- print to console
+ຂໍ້ມູນນໍາເຂົ້າ variableName        -- input from console
 ສ້າງ variableName        -- create a variable
 ອ່ານ variableName        -- read value from a variable
 ເກັບໄວ້ໃນ variableName value        -- set value to a variable
-ປະກອບ variableResult "string1" "string2" ...        -- concatenate 2 or more strings and save to a variable 
-ລວມກັນ variableResult variable1 variable2 ...        -- combine 2 variables to create a string and save to a variable
+ປະກອບ variableResult variable1 "string1" "string2" variable2 ...        -- concatenate 2 or more strings and variables, saving to a variable
 ຄວາມຄິດເຫັນ "text"        -- comment, interpreter ignores, it's for you and other people to read
 ຕົວເລກ variableResult variable1 operation1 variable2        -- perform an operation with whole numbers between 2 variables
 ຕົວເລກສິບ variableResult variable1 operation1 variable2        -- perform an operation with decimal numbers between 2 variables (?)
@@ -19,9 +19,6 @@ COMMANDS
 CONSTANTS
 ຈິງ        -- true
 ຜິດ        -- false
-
-KEYWORDS
-ຕໍ່ໄປ        -- next item (Unused)
 
 MATH
 ເລກບວກ        -- add
@@ -50,3 +47,8 @@ LOGICAL OPERATORS
 ແລະ        -- AND
 ຫຼື         -- OR
 ບໍ່ແມ່ນ        -- NOT
+
+DEPRECATED
+ຕໍ່ໄປ        -- next item
+ປະກອບ variableResult "string1" "string2" ...        -- concatenate 2 or more strings and save to a variable
+ລວມກັນ variableResult variable1 variable2 ...        -- combine 2 variables to create a string and save to a variable

@@ -4,6 +4,7 @@ public enum Commands {
 	LEFTBRACKET("{"),
 	RIGHTBRACKET("}"),
 	PRINT("ຂຽນ"),
+	INPUT("ຂໍ້ມູນນໍາເຂົ້າ"),
 	CREATE_VARIABLE("ສ້າງ"),
 	READ_VARIABLE("ອ່ານ"),
 	SET_VARIABLE("ເກັບໄວ້ໃນ"),

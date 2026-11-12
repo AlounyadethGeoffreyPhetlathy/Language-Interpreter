@@ -2,7 +2,7 @@ import java.util.ArrayList;
 public class MyFormatter {
 	// Fields
 	ArrayList<Token> instructionsData = new ArrayList<Token>();
-	final String[] KEYWORDS = {"ເທົ່າກັບ", "ບໍ່ເທົ່າກັບ", "ນ້ອຍກວ່າ", "ນ້ອຍກວ່າຫຼືເທົ່າກັນ", "ຫຼາຍກວ່າ", "ຫຼາຍກວ່າຫຼືເທົ່າກັບ"};
+	final String[] KEYWORDS = {"ເທົ່າກັບ", "ບໍ່ເທົ່າກັບ", "ນ້ອຍກວ່າ", "ນ້ອຍກວ່າຫຼືເທົ່າກັນ", "ຫຼາຍກວ່າ", "ຫຼາຍກວ່າຫຼືເທົ່າກັບ", "ແລະ", "ຫຼື", "(", ")"};
 	final String[] COMMANDS = {"ອ່ານ", "{", "}"};
 	
 	public ArrayList<Token> FormatLine(String s) {
