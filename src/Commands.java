@@ -9,8 +9,10 @@ public enum Commands {
 	READ_VARIABLE("ອ່ານ"),
 	SET_VARIABLE("ເກັບໄວ້ໃນ"),
 	CONCATENATE("ປະກອບ"),
-	COMBINE("ລວມກັນ"),
-	IF("ຖ້າວ່າ");
+	MATH("ຕົວເລກ"),
+//	COMBINE("ລວມກັນ"), DEPRECATED
+	IF("ຖ້າວ່າ"),
+	WHILE("ໃນຂະນະທີ່");
 	
 	private String command;
 	

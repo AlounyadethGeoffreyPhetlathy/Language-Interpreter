@@ -1,11 +1,20 @@
-ຄວາມຄິດເຫັນ "Testing for condition order"
+ຄວາມຄິດເຫັນ "While loop time in my custom programming language inspired by LAO"
 
-ສ້າງ bool1
-ສ້າງ bool2
-ເກັບໄວ້ໃນ bool1 "ຜິດ"
-ເກັບໄວ້ໃນ bool2 "ຜິດ"
+ສ້າງ row
+ເກັບໄວ້ໃນ row "1"
+ສ້າງ column
+ເກັບໄວ້ໃນ column "1"
+ສ້າງ takeString
 
-ຖ້າວ່າ ( ອ່ານ bool1 ແລະ ອ່ານ bool2 ) ແລະ ( ອ່ານ bool1 ຫຼື ອ່ານ bool2 )
+ຂຽນ "Start of a program:"
+
+ໃນຂະນະທີ່ ອ່ານ row ນ້ອຍກວ່າ INTEGER "20"
 {
-	ຂຽນ "( bool1 && bool2 ) && ( bool1 || bool2 ) is true"
+	ໃນຂະນະທີ່ ອ່ານ column ນ້ອຍກວ່າ INTEGER "20"
+	{
+		ປະກອບ takeString  
+		ຂຽນ ""
+		ຕົວເລກ column column ເລກບວກ "1"
+	}
+	ຕົວເລກ row row ເລກບວກ "1"
 }

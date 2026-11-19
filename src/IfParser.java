@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-
 public class IfParser implements IParser {
 	// Fields
 	private final int start;
@@ -272,10 +271,29 @@ public class IfParser implements IParser {
 			tokenIndex++;
 		}
 		
-		// Evaulate logical AND forth
+		// Evaluate logical NOT forth
 		tokenIndex = 0;
 		Token booltoken1;
 		Token booltoken2;
+		while (tokenIndex < condition.size()) {
+			switch (condition.get(tokenIndex).GetType()) {
+			case "NOT":
+				booltoken1 = condition.get(tokenIndex+1);
+				if (!booltoken1.GetValue().equals("ຈິງ")) {
+					condition.set(tokenIndex, new Token("ຈິງ", "VALUE"));
+					condition.remove(tokenIndex+1);
+				}
+				else {
+					condition.set(tokenIndex, new Token("ຜິດ", "VALUE"));
+					condition.remove(tokenIndex+1);
+				}
+				break;
+			}
+			tokenIndex++;
+		}
+		
+		// Evaluate logical AND fifth
+		tokenIndex = 0;
 		while (tokenIndex < condition.size()) {
 			switch (condition.get(tokenIndex).GetType()) {
 			case "AND":
@@ -296,7 +314,8 @@ public class IfParser implements IParser {
 			tokenIndex++;
 		}
 		
-		// Evaluate logical OR fifth
+		// Evaluate logical OR sixth
+		tokenIndex = 0;
 		while (tokenIndex < condition.size()) {
 			switch (condition.get(tokenIndex).GetType()) {
 			case "OR":

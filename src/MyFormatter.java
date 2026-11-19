@@ -2,23 +2,26 @@ import java.util.ArrayList;
 public class MyFormatter {
 	// Fields
 	ArrayList<Token> instructionsData = new ArrayList<Token>();
-	final String[] KEYWORDS = {"ເທົ່າກັບ", "ບໍ່ເທົ່າກັບ", "ນ້ອຍກວ່າ", "ນ້ອຍກວ່າຫຼືເທົ່າກັນ", "ຫຼາຍກວ່າ", "ຫຼາຍກວ່າຫຼືເທົ່າກັບ", "ແລະ", "ຫຼື", "(", ")"};
-	final String[] COMMANDS = {"ອ່ານ", "{", "}"};
+	final String[] KEYWORDS = {"ເທົ່າກັບ", "ບໍ່ເທົ່າກັບ", "ນ້ອຍກວ່າ", "ນ້ອຍກວ່າຫຼືເທົ່າກັນ", "ຫຼາຍກວ່າ", "ຫຼາຍກວ່າຫຼືເທົ່າກັບ", "ແລະ", "ຫຼື", "ບໍ່ແມ່ນ", "(", ")", "ເລກບວກ", "ເລກລົບ", "ເລກຄູນ", "ເລກຫານ", "ສ່ວນທີ່ເຫຼືອ"};
+	final String[] COMMANDS = {"ອ່ານ", "ໃນຂະນະທີ່", "{", "}"};
 	
 	public ArrayList<Token> FormatLine(String s) {
 		ArrayList<Token> finalArray = new ArrayList<Token>();
 		boolean valueDelimiter = false;
 		boolean spaceDelimiter = false;
 		boolean getCom = false;
+		boolean emptyString = false;
 		String st = "";
 //		int count = 0;
 		
 		for (int i = 0; i < s.length(); i++) {
 			if (s.charAt(i) == '\"') { // start of value
 				valueDelimiter = !valueDelimiter;
-				if (!st.isEmpty()) { // end of value
+				if (i != 0) if (s.charAt(i-1) == '\"') emptyString = true;
+				if (!st.isEmpty() || emptyString) { // end of value
 					instructionsData.add(new Token(st, "VALUE"));
 					st = "";
+					emptyString = false;
 				}
 			}
 			else if (valueDelimiter) { // add character in value

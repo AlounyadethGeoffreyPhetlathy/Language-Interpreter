@@ -59,6 +59,9 @@ public class MyExpressionParser {
 				case "ຫຼື": // ||
 					formattedCondition.add(new Token("||", "OR"));
 					break;
+				case "ບໍ່ແມ່ນ": // !
+					formattedCondition.add(new Token("!", "NOT"));
+					break;
 				case "(":
 					formattedCondition.add(new Token("(", "OPEN_PARENTHESE"));
 					break;
