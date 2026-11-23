@@ -28,7 +28,7 @@ COMMANDS
 -- code body
 }
 
-ສໍາລັບ someCondition        -- for statement
+ສໍາລັບ variable | someCondition | action        -- for statement
 {
 -- code body
 }

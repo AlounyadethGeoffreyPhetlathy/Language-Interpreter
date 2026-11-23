@@ -3,7 +3,7 @@ public class MyFormatter {
 	// Fields
 	ArrayList<Token> instructionsData = new ArrayList<Token>();
 	final String[] KEYWORDS = {"ເທົ່າກັບ", "ບໍ່ເທົ່າກັບ", "ນ້ອຍກວ່າ", "ນ້ອຍກວ່າຫຼືເທົ່າກັນ", "ຫຼາຍກວ່າ", "ຫຼາຍກວ່າຫຼືເທົ່າກັບ", "ແລະ", "ຫຼື", "ບໍ່ແມ່ນ", "(", ")", "ເລກບວກ", "ເລກລົບ", "ເລກຄູນ", "ເລກຫານ", "ສ່ວນທີ່ເຫຼືອ"};
-	final String[] COMMANDS = {"ອ່ານ", "ໃນຂະນະທີ່", "{", "}"};
+	final String[] COMMANDS = {"ອ່ານ", "{", "}"};
 	
 	public ArrayList<Token> FormatLine(String s) {
 		ArrayList<Token> finalArray = new ArrayList<Token>();

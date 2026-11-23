@@ -10,6 +10,7 @@ public class MyLanguageInterpreter {
 	
 	// Fields
 	public ArrayList<ArrayList<Token>> codeLines;
+	private ArrayList<Token> localVariableList = new ArrayList<Token>();
 	private int globalLine = 0;
 	private Commands com;
 	
@@ -72,7 +73,7 @@ public class MyLanguageInterpreter {
 			break;
 		case "ໃນຂະນະທີ່":
 			localLine+=1;
-			if (!codeLines.get(localLine).get(0).GetValue().equals("{")) throw new RuntimeException("Invalid IF declaration");
+			if (!codeLines.get(localLine).get(0).GetValue().equals("{")) throw new RuntimeException("Invalid WHILE declaration");
 			start = localLine;
 			localLine+=1;
 			while (localLine < codeLines.size() && bracketCount != 0) {
@@ -103,9 +104,14 @@ public class MyLanguageInterpreter {
 		case "{": // Left Bracket
 			break;
 		case "}": // Right Bracket
-			if (ms.IsStackEmpty()) break; // Not an IF statement
+			if (ms.IsStackEmpty()) break; // Huh?
 			IParser ipar = ms.PeekItem();
-			if (globalLine == ipar.GetEndBlock()) {
+			boolean endControlBracket = globalLine == ipar.GetEndBlock() ? true : false;
+			if ((ipar instanceof IfParser) && endControlBracket) { // IF, SWITCH
+				ms.PopItem();
+				CleanScope();
+			}
+			else if (endControlBracket) { // WHILE, FOR
 				globalLine = ipar.GetStartBlock()-2;
 			}
 			break;
@@ -148,6 +154,8 @@ public class MyLanguageInterpreter {
 		case "ໃນຂະນະທີ່": // WHILE
 			WhileCommand();
 			break;
+		case "ສໍາລັບ": // FOR
+			break;
 		default:
 			throw new RuntimeException("Invalid command on line: " + globalLine);
 		}
@@ -164,7 +172,12 @@ public class MyLanguageInterpreter {
 	}
 	
 	private void CreateVariableCommand(String variableName) {
-		mhm.AddEntry(mhm.Hash(variableName), variableName);
+		if (ms.IsStackEmpty()) mhm.AddEntry(mhm.Hash(variableName), variableName);
+		else {
+			int scope = ms.Size();
+			localVariableList.add(new Token(Integer.toString(scope), variableName));
+			mhm.AddEntry(mhm.Hash(variableName), variableName);
+		}
 	}
 	
 	private void ReadVariableCommand(String variableName) {
@@ -338,7 +351,10 @@ public class MyLanguageInterpreter {
 		IfParser ifObj = mm.SearchIf(globalLine+1);
 		ArrayList<Token> conditionCopy = new ArrayList<Token>(ifObj.getIfCondition());
 		boolean result = ifObj.EvaluateCondition(mhm, conditionCopy);
-		if (result == true) globalLine = ifObj.GetStartBlock();
+		if (result == true) {
+			globalLine = ifObj.GetStartBlock();
+			if (!ms.ContainsItem(ifObj)) ms.PushItem(ifObj);
+		}
 		else globalLine = ifObj.GetEndBlock();
 	}
 	
@@ -353,6 +369,15 @@ public class MyLanguageInterpreter {
 		else {
 			ms.PopItem();
 			globalLine = whileObj.GetEndBlock();
+		}
+	}
+	
+	private void CleanScope() {
+		int scope = ms.Size();
+		for (Token localVariable : localVariableList) {
+			if (Integer.parseInt(localVariable.GetValue()) > scope) {
+				mhm.DeleteEntry(mhm.Hash(localVariable.GetType()), localVariable.GetType());
+			}
 		}
 	}
 }

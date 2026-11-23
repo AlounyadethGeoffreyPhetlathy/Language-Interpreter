@@ -1,25 +1,16 @@
-ຄວາມຄິດເຫັນ "While loop time in my custom programming language inspired by LAO"
+ຄວາມຄິດເຫັນ "Testing variable scoping"
 
-ສ້າງ iterCount
-ເກັບໄວ້ໃນ iterCount "0"
-ສ້າງ iterString
-ເກັບໄວ້ໃນ iterString "Start of a program:"
-ອ່ານ iterString
-ເກັບໄວ້ໃນ iterString ""
+ສ້າງ a
 
-ໃນຂະນະທີ່ ອ່ານ iterCount ນ້ອຍກວ່າ INTEGER "20"
+ຖ້າວ່າ "ຈິງ"
 {
-	ຖ້າວ່າ ອ່ານ iterCount ນ້ອຍກວ່າ INTEGER "10"
-	{
-		ຂຽນ "iterCount is less than 10"
-	}
-	ຖ້າວ່າ ອ່ານ iterCount ເທົ່າກັບ INTEGER "10"
-	{
-		ຂຽນ "iterCount is equal to 10"
-	}
-	ຖ້າວ່າ ອ່ານ iterCount ຫຼາຍກວ່າ INTEGER "10"
-	{
-		ຂຽນ "iterCount is greater than 10"
-	}
-	ຕົວເລກ iterCount iterCount ເລກບວກ "1"
+	ຂຽນ "Welcome to variable scoping"
+	ສ້າງ x
+	ເກັບໄວ້ໃນ x "x: Hello local scope"
+	ເກັບໄວ້ໃນ a "a: Unlike x, I can be read in a local scope"
+	ອ່ານ x
+	ອ່ານ a
 }
+
+ເກັບໄວ້ໃນ a "a: And in the global scope"
+ອ່ານ a

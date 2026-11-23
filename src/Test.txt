@@ -1,20 +1,18 @@
-ຄວາມຄິດເຫັນ "While loop time in my custom programming language inspired by LAO"
+ຄວາມຄິດເຫັນ "Testing variable scoping"
 
-ສ້າງ row
-ເກັບໄວ້ໃນ row "1"
-ສ້າງ column
-ເກັບໄວ້ໃນ column "1"
-ສ້າງ takeString
+ສ້າງ a
 
-ຂຽນ "Start of a program:"
-
-ໃນຂະນະທີ່ ອ່ານ row ນ້ອຍກວ່າ INTEGER "20"
+ຖ້າວ່າ "ຈິງ"
 {
-	ໃນຂະນະທີ່ ອ່ານ column ນ້ອຍກວ່າ INTEGER "20"
-	{
-		ປະກອບ takeString  
-		ຂຽນ ""
-		ຕົວເລກ column column ເລກບວກ "1"
-	}
-	ຕົວເລກ row row ເລກບວກ "1"
+	ຂຽນ "Welcome to variable scoping"
+	ສ້າງ x
+	ເກັບໄວ້ໃນ x "x: Hello local scope"
+	ເກັບໄວ້ໃນ a "a: Unlike x, I can be read in a local scope"
+	ອ່ານ x
+	ອ່ານ a
 }
+
+ຄວາມຄິດເຫັນ "Accessing x out here results in an exception"
+
+ເກັບໄວ້ໃນ a "a: And in the global scope"
+ອ່ານ a

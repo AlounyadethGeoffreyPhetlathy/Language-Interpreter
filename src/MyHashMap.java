@@ -52,6 +52,18 @@ public class MyHashMap {
 		throw new RuntimeException("Can not find variable " + variableName);
 	}
 	
+	// Delete a variable from the table (for local variable scoping)
+	public void DeleteEntry(int bucketIndex, String variableName) {
+		ArrayList<Entry> entries = buckets[bucketIndex];
+		for (int i = 0; i < entries.size(); i++) {
+			if (entries.get(i).key.equals(variableName)) {
+				buckets[bucketIndex].remove(i);
+				return;
+			}
+		}
+		throw new RuntimeException("Can not find variable " + variableName);
+	}
+	
 	// Returns a variable (also known as Entry)
 	public Entry GetEntry(int bucketIndex, String variableName) {
 		for (Entry e: buckets[bucketIndex]) {

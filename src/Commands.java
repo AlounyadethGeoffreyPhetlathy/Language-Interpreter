@@ -12,7 +12,8 @@ public enum Commands {
 	MATH("ຕົວເລກ"),
 //	COMBINE("ລວມກັນ"), DEPRECATED
 	IF("ຖ້າວ່າ"),
-	WHILE("ໃນຂະນະທີ່");
+	WHILE("ໃນຂະນະທີ່"),
+	FOR("ສໍາລັບ");
 	
 	private String command;
 	
